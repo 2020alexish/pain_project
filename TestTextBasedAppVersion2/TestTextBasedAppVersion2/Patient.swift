@@ -1,27 +1,38 @@
-class patient{
+class Patient{
     var name: String
     var typesurgery: String
     var physician: String
     var DOB: date
-    let patientList = []
-	init(var patientName, var DateOfBirth, var patientSurgeries, var symptom){
-        
+    let surveyanswers = []
+    init(patientName: String, DateOfBirth: Date, patientSurgeries: String){
+        self.name = patientName
+        self.DOB = DateOfBirth
+        self.typesurgery = patientSurgeries
+    
     }
-    func addPatient(){
-        patientList.append(Patient)
-    }
-    func removePatient(){
-        patientList.remove(Patient)
-	}
+
 }
-class survey extends patient{
+
+class Survey: Patient{
     var symptoms:String
     var medication:String
-    var painLevel:int
+    var painLevel:Int
     
-    init(var patientSymptom, var patientMeds, var patientPainLevel) {
-        symtpoms = patientSymptom
-        medication = patientMeds
-        painLevel = patientPainLevel
+    init(patientSymptom: [],  patientMeds: [],  patientPainLevel: Int, patientName: String, DateOfBirth: Date, patientSurgeries: String) {
+        self.symptoms = patientSymptom
+        self. medication = patientMeds
+        self.painLevel = patientPainLevel
+        super.init(patientName, DateOfBirth, patientSurgeries)
     }
+}
+
+
+
+let patientList = []
+
+func addPatient(){
+    patientList.append(Patient)
+}
+func removePatient(){
+    patientList.remove(Patient)
 }
