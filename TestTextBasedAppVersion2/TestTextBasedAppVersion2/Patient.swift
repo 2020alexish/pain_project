@@ -20,7 +20,7 @@ class Survey: Patient{
     
     init(patientSymptom: [],  patientMeds: [],  patientPainLevel: Int, patientName: String, DateOfBirth: Date, patientSurgeries: String) {
         self.symptoms = patientSymptom
-        self. medication = patientMeds
+        self.medication = patientMeds   
         self.painLevel = patientPainLevel
         super.init(patientName, DateOfBirth, patientSurgeries)
     }
