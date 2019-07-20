@@ -1,5 +1,4 @@
 class PatientList {
-    hiBitch
 }
 class Patient{
     var name: String
