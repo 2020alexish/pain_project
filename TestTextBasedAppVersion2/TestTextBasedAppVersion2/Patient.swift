@@ -1,12 +1,4 @@
 class PatientList {
-    var patientList = [Patient]()
-    
-    func addPatient(){
-        patientList.append(Patient)
-    }
-    func removePatient(){
-        patientList.remove(at: Patient)
-    }
 
 }
 class Patient{
@@ -14,12 +6,22 @@ class Patient{
     var typesurgery: String
     var physician: String
     var DOB: String
-    let surveyanswers = [String]
+    let surveyanswers = [String]()
     init(patientName: String, surgeryType: String, patientPhysician: String, DateOfBirth: String, patientSurgeries: String){
         self.name = patientName
         self.DOB = DateOfBirth
         self.typesurgery = patientSurgeries
+
+    }
+    static var patients = [Patient]()
     
+    init() {
+        Patient.patients.append(self)
+    }
+    
+    init(name: String) {
+        self.name = name
+        Patient.patients.append(self)
     }
 
 }
@@ -28,14 +30,23 @@ class Survey: Patient{
     var symptoms:[String]
     var medication:[String]
     var painLevel:Int
-    
+
     init(patientSymptom: [String],  patientMeds: [String],  patientPainLevel: Int, patientName: String, DateOfBirth: String, patientSurgeries: String) {
         self.symptoms = patientSymptom
-        self.medication = patientMeds   
+        self.medication = patientMeds
         self.painLevel = patientPainLevel
-        super.init(patientName, DateOfBirth, patientSurgeries)
+        Patient.init(patientName, DateOfBirth, patientSurgeries)
     }
 }
+
+
+class Product {
+    var name: String?
+    
+}
+
+
+
 
 
 
