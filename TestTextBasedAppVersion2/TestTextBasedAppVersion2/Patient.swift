@@ -1,4 +1,4 @@
-heyyyyy
+
 class PatientList {
 }
 class Patient{
@@ -8,10 +8,9 @@ class Patient{
     var DOB: String
     let surveyanswers = [String]()
     init(patientName: String, surgeryType: String, patientPhysician: String, DateOfBirth: String, patientSurgeries: String){
-=======
-    let surveyanswers = []
+  
+        let surveyanswers = []
     init(patientName: String, DateOfBirth: String, patientSurgeries: String){
->>>>>>> 7ffc8880e3148b8a35382391a26a6ea396e6e6a0
         self.name = patientName
         self.DOB = DateOfBirth
         self.typesurgery = patientSurgeries
@@ -48,10 +47,3 @@ class Product {
     var name: String?
     
 }
-
-
-
-
-
-
-
