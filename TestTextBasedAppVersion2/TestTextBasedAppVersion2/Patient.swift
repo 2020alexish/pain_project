@@ -1,17 +1,21 @@
 class PatientList{
     var array : [Patient]
     
-    init()
-    {}
+    init(patientArray: [Patient]){
+        self.array = patientArray
+    }
     
-    query()
-    {}
+    func query(){
+        
+    }
     
-    add_patient()
-    {}
+    func add_patient(){
     
-    remove_patient()
-    {}
+    }
+    
+    func remove_patient(){
+    
+    }
 }
 class Patient{
     var name: String
