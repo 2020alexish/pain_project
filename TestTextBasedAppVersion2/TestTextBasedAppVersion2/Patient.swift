@@ -1,6 +1,5 @@
 
 class PatientList {
-
 }
 class Patient{
     var name: String
