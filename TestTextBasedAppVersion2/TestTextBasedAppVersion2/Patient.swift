@@ -1,5 +1,17 @@
-
-class PatientList {
+class PatientList{
+    var array : [Patient]
+    
+    init()
+    {}
+    
+    query()
+    {}
+    
+    add_patient()
+    {}
+    
+    remove_patient()
+    {}
 }
 class Patient{
     var name: String
