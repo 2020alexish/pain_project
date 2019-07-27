@@ -1,6 +1,3 @@
-
-
-=======
 class PatientList{
     var array : [Patient]
     
@@ -13,13 +10,12 @@ class PatientList{
     }
     
     func add_patient(){
-    
+        
     }
     
     func remove_patient(){
-    
+        
     }
->>>>>>> 81f852773aa0a2e37c8444116c5e89ec40a07b4f
 }
 class Patient{
     var name: String
@@ -51,8 +47,3 @@ class Survey: Patient{
     }
 }
 
-
-class Product {
-    var name: String?
-    
-}
