@@ -1,5 +1,3 @@
-hey
-heyyyyy
 class PatientList {
 
 }
