@@ -1,5 +1,4 @@
 
-yoyoyoyooyoyoyoyoyo
 class Patient{
     var name: String
     var typesurgery: String
