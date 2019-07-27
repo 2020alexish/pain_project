@@ -6,17 +6,28 @@ class PatientList{
     }
     
     func query(){
-        
+        let lastName = readLine()
+        for Patient in array {
+            if (Patient.name == lastName!) {
+                print(Patient)
+            }
+        }
     }
     
     func add_patient(){
-        
+		 array.append(Patient)
     }
     
-    func remove_patient(){
         
+
+   
+    
+    
+    func remove_patient(){
+        let index = Int(readLine()!)
+        array.remove(at: index!)
     }
-}
+} 
 class Patient{
     var name: String
     var typesurgery: String
