@@ -9,19 +9,20 @@ class PatientList{
     }
     
     func query(){
+        print ("Input the last name of the person you are looking fo ")
         let lastName = readLine()
-        for Patient in array {
-            if (Patient.name == lastName!) {
-                print(Patient)
+        for patient in array {
+            if (patient.name == lastName!) {
+                print(patient)
             }
         }
     }
     
-    func add_patient(){
-        array.append(Patient)
+    func addPatient(patient: Patient){
+        array.append(patient)
     }
     
-    func remove_patient(){
+    func removePatient(){
         let index = Int(readLine()!)
         array.remove(at: index!)
     }
@@ -59,5 +60,4 @@ class Survey: Patient{
 
 class Product {
     var name: String?
-    
 }
