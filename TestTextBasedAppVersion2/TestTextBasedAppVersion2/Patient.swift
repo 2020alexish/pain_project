@@ -1,29 +1,22 @@
 class PatientList{
     var array : [Patient]
-    
     init(patientArray: [Patient]){
         self.array = patientArray
     }
-    
     func query(){
-        let lastName = readLine()
-        for Patient in array {
-            if (Patient.name == lastName!) {
-                print(Patient)
+        print("what is the patient's name?")
+        let fullName = readLine()
+        for patient in array {
+            if (patient.name == fullName!) {
+                print(patient)
             }
         }
     }
-    
-    func add_patient(){
-		 array.append(Patient)
+    func addPatient(patient: Patient){
+		 array.append(patient)
     }
-    
-        
-
-   
-    
-    
-    func remove_patient(){
+    func removePatient(){
+        print("what index?")
         let index = Int(readLine()!)
         array.remove(at: index!)
     }
@@ -41,7 +34,6 @@ class Patient{
         self.physician = patientPhysician
         self.surveyanswers = surveyanswers
     }
-
 }
 
 class Survey: Patient{
@@ -57,4 +49,4 @@ class Survey: Patient{
 
     }
 }
-
+//initialize a dummy patient instance, initialize a dummy patient instance, use dummy patient to test functions in PatientList
