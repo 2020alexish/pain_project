@@ -8,38 +8,24 @@
 
 import Foundation
 
-//class SurveyQuestion {
-//    var text: String
-//    var response: String?
-//    init(text: String) {
-//        self.text = text
-//    }
-//    func ask() {
-//        print(text)
-//    }
-//}
-//let painQuestion = SurveyQuestion(text: "Can you rate your pain on a scale from 1-5?")
-//painQuestion.ask()
-//let pain = readLine()
-//let medQuestion = SurveyQuestion(text: "What medication have you taken today?")
-//medQuestion.ask()
-//let medication = readLine()
-//let symptomsQuestion = SurveyQuestion(text: "What are your symptoms?")
-//symptomsQuestion.ask()
-//let symptoms = readLine()
-//print ("Your pain is \(pain!).")
-//print ("Your medication is \(medication!).")
-//print ("Your sympytoms are \(symptoms!).")
-//
-//func getPatientInfo(){
-//    let surveyanswers = [pain, medication, symptoms]
-//    for answer in surveyanswers{
-//        print (answer!)
-//    }
-//}
-let test = Patient(patientName: "Alexis", patientPhysician: "Noa", DateOfBirth: "Yesterday", patientSurgeries: "Knee", surveyanswers: ["idk"])
+class SurveyQuestion {
+    var text: String
+    var response: String?
+    init(text: String) {
+        self.text = text
+    }
+    func ask() {
+        print(text)
+    }
+}
+let nameQuestion = SurveyQuestion (text: "What is your name?")
+nameQuestion.ask()
+let patient_name = readLine()
+let physicianQuestion = SurveyQuestion (text: "Who is your doctor?")
+physicianQuestion.ask()
+let physician_name = readLine()
+
+let test = Patient(patientName: patient_name!, patientPhysician: physician_name!, DateOfBirth: "Yesterday", patientSurgeries: "Knee", surveyanswers: ["idk"])
 let testList = PatientList(patientArray: [])
-let test2 = Patient(patientName: "Noa", patientPhysician: "Alexis", DateOfBirth: "Today", patientSurgeries: "Hand", surveyanswers: ["hola"])
 testList.addPatient(patient: test)
-testList.addPatient(patient: test2)
 testList.query()

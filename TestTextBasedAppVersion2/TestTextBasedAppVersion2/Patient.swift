@@ -3,12 +3,20 @@ class PatientList{
     init(patientArray: [Patient]){
         self.array = patientArray
     }
-    func query(){
+    func query(selectedInfo: String){
         print("what is the patient's name?")
-        let fullName = readLine()
+        var fullName = readLine()
         for patient in array {
             if (patient.name == fullName!) {
                 print(patient)
+            }
+        }
+        print("What specific information would you like to see?")
+        var selectedInfo = selectedInfo
+        selectedInfo = readLine()!
+        for object in array{
+            if (object = selectedInfo){
+                print(object)
             }
         }
     }
@@ -28,7 +36,7 @@ class Patient{
     var DOB: String
     var surveyanswers: [String]
     init(patientName: String, patientPhysician: String, DateOfBirth: String, patientSurgeries: String, surveyanswers: [String]){
-        self.name = patientName
+        self.name = patient_name!
         self.DOB = DateOfBirth
         self.typesurgery = patientSurgeries
         self.physician = patientPhysician
@@ -49,4 +57,3 @@ class Survey: Patient{
 
     }
 }
-//initialize a dummy patient instance, initialize a dummy patient instance, use dummy patient to test functions in PatientList
