@@ -12,8 +12,15 @@ class PatientList{
             }
         }
     }
-    func addPatient(patient: Patient){
-         array.append(patient)
+    func addPatient(){
+        let nameQuestion = SurveyQuestion (text: "What is your name?")
+        nameQuestion.ask()
+        let patient_name = readLine()
+        let physicianQuestion = SurveyQuestion (text: "Who is your doctor?")
+        physicianQuestion.ask()
+        let physician_name = readLine()
+        let test = Patient(patientName: patient_name!, patientPhysician: physician_name!, DateOfBirth: "Yesterday", patientSurgeries: "Knee", surveyanswers: ["idk"])
+        array.append(test)
     }
     func removePatient(){
         print("what index?")
@@ -28,7 +35,7 @@ class Patient{
     var DOB: String
     var surveyanswers: [String]
     init(patientName: String, patientPhysician: String, DateOfBirth: String, patientSurgeries: String, surveyanswers: [String]){
-        self.name = patient_name!
+        self.name = patientName
         self.DOB = DateOfBirth
         self.typesurgery = patientSurgeries
         self.physician = patientPhysician
