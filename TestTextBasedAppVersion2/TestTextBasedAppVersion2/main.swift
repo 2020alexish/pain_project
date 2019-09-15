@@ -18,14 +18,30 @@ class SurveyQuestion {
         print(text)
     }
 }
-let nameQuestion = SurveyQuestion (text: "What is your name?")
-nameQuestion.ask()
-let patient_name = readLine()
-let physicianQuestion = SurveyQuestion (text: "Who is your doctor?")
-physicianQuestion.ask()
-let physician_name = readLine()
 
-let test = Patient(patientName: patient_name!, patientPhysician: physician_name!, DateOfBirth: "Yesterday", patientSurgeries: "Knee", surveyanswers: ["idk"])
 let testList = PatientList(patientArray: [])
-testList.addPatient(patient: test)
-testList.query()
+var answer2 = "YES"
+
+repeat{
+    print("press 1 for add, press 2 for remove, press 3 for query")
+    let answer = readLine()
+    if answer == "1"{
+        testList.addPatient()
+    }
+    if answer == "2"{
+        testList.removePatient()
+    }
+    if answer == "3"{
+        testList.query()
+    }
+    print("do you want to do something else? type YES or NO")
+    answer2 = readLine()!
+}
+    while answer2 == "YES"
+
+
+
+
+
+
+
