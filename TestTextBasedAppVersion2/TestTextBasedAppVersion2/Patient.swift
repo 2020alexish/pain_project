@@ -8,7 +8,7 @@ class PatientList{
         let fullName = readLine()
         for patient in array {
             if (patient.name == fullName!) {
-                print(patient)
+                print(patient.name)
             }
         }
     }
@@ -27,19 +27,6 @@ class Patient{
     var physician: String
     var DOB: String
     var surveyanswers: [String]
-    struct patientInfo{
-        var loopname = ""
-        var looplastName = ""
-        var loopnickName = ""
-        var loopage = 0
-        init(testName: String, testLastName: String, testNickName: String, testAge: Int){
-            self.loopname = testName
-            self.looplastName = testLastName
-            self.loopnickName = testNickName
-            self.loopage = testAge
-        }
-    }
-    var user = patientInfo(testName: String, testLastName: String, testNickName: String, testAge: Int) //does this need to be "String"
     init(patientName: String, patientPhysician: String, DateOfBirth: String, patientSurgeries: String, surveyanswers: [String]){
         self.name = patient_name!
         self.DOB = DateOfBirth
@@ -47,7 +34,6 @@ class Patient{
         self.physician = patientPhysician
         self.surveyanswers = surveyanswers
     }
-    let mirrored_object = Mirror(reflecting: user)
 }
 
 class Survey: Patient{
@@ -62,10 +48,4 @@ class Survey: Patient{
         super.init(patientName: patientName, patientPhysician: patPhysician, DateOfBirth: DateOfBirth, patientSurgeries: patientSurgeries, surveyanswers: patSurvAnswer)
     }
 }
-
-
-
-
-
-
 
