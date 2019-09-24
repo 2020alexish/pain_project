@@ -8,7 +8,10 @@ class PatientList{
         let fullName = readLine()
         for patient in array {
             if (patient.name == fullName!) {
-                print(patient.name)
+                print("Patient Name: \(patient.name)")
+                print("Physician: \(patient.physician)")
+                print("Date of Birth: \(patient.DOB)")
+                print("Surgery Type: \(patient.typesurgery)")
             }
         }
     }
@@ -19,8 +22,14 @@ class PatientList{
         let physicianQuestion = SurveyQuestion (text: "Who is your doctor?")
         physicianQuestion.ask()
         let physician_name = readLine()
-        let test = Patient(patientName: patient_name!, patientPhysician: physician_name!, DateOfBirth: "Yesterday", patientSurgeries: "Knee", surveyanswers: ["idk"])
-        array.append(test)
+        let DOBQuestion = SurveyQuestion (text: "When is your birthday?")
+        DOBQuestion.ask()
+        let DOB = readLine()
+        let surgeryTypeQuestion = SurveyQuestion (text: "What kind of surgery?")
+        surgeryTypeQuestion.ask()
+        let surgery_type = readLine()
+        let user = Patient(patientName: patient_name!, patientPhysician: physician_name!, DateOfBirth: DOB!, patientSurgeries: surgery_type!, surveyanswers: [""])
+        array.append(user)
     }
     func removePatient(){
         print("what index?")
@@ -41,6 +50,8 @@ class Patient{
         self.physician = patientPhysician
         self.surveyanswers = surveyanswers
     }
+    //create initializer that makes instances of Patient class
+    // create specific prints for each
 }
 
 class Survey: Patient{
@@ -56,3 +67,22 @@ class Survey: Patient{
     }
 }
 
+func displayMenu(){
+    var answer2 = "YES"
+    repeat{
+        print("press 1 for add, press 2 for remove, press 3 for query")
+        let answer = readLine()
+        if answer == "1"{
+            testList.addPatient()
+        }
+        if answer == "2"{
+            testList.removePatient()
+        }
+        if answer == "3"{
+            testList.query()
+        }
+        print("do you want to do something else? type YES or NO")
+        answer2 = readLine()!
+    }
+        while answer2 == "YES"
+}
