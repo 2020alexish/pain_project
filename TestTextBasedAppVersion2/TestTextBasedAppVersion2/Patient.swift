@@ -16,19 +16,7 @@ class PatientList{
         }
     }
     func addPatient(){
-        let nameQuestion = SurveyQuestion (text: "What is your name?")
-        nameQuestion.ask()
-        let patient_name = readLine()
-        let physicianQuestion = SurveyQuestion (text: "Who is your doctor?")
-        physicianQuestion.ask()
-        let physician_name = readLine()
-        let DOBQuestion = SurveyQuestion (text: "When is your birthday?")
-        DOBQuestion.ask()
-        let DOB = readLine()
-        let surgeryTypeQuestion = SurveyQuestion (text: "What kind of surgery?")
-        surgeryTypeQuestion.ask()
-        let surgery_type = readLine()
-        let user = Patient(patientName: patient_name!, patientPhysician: physician_name!, DateOfBirth: DOB!, patientSurgeries: surgery_type!, surveyanswers: [""])
+        let user = Patient()
         array.append(user)
     }
     func removePatient(){
@@ -41,17 +29,40 @@ class Patient{
     var name: String
     var typesurgery: String
     var physician: String
-    var DOB: String
+    var DOB: [Int]
     var surveyanswers: [String]
-    init(patientName: String, patientPhysician: String, DateOfBirth: String, patientSurgeries: String, surveyanswers: [String]){
+    init(patientName: String, patientPhysician: String, DateOfBirth: [Int], patientSurgeries: String, surveyanswers: [String]){
         self.name = patientName
         self.DOB = DateOfBirth
         self.typesurgery = patientSurgeries
         self.physician = patientPhysician
         self.surveyanswers = surveyanswers
     }
-    //create initializer that makes instances of Patient class
-    // create specific prints for each
+    init(){
+        let nameQuestion = SurveyQuestion (text: "What is your name?")
+        nameQuestion.ask()
+        self.name = readLine()!
+        let physicianQuestion = SurveyQuestion (text: "Who is your doctor?")
+        physicianQuestion.ask()
+        self.physician = readLine()!
+        let DOBQuestion = SurveyQuestion (text: "When is your birthday?")
+        DOBQuestion.ask()
+        print("Month (MM):")
+        let month = readLine()!
+        let intMonth = Int(month)
+        print("Day (dd):")
+        let day = readLine()!
+        let intDay = Int(day)
+        print("Year (yyyy):")
+        let year = readLine()!
+        let intYear = Int(year)
+        DOB = [intMonth, intDay, intYear] as! [Int]
+        print("DOB:", self.DOB)
+        let surgeryTypeQuestion = SurveyQuestion (text: "What kind of surgery?")
+        surgeryTypeQuestion.ask()
+        self.typesurgery = readLine()!
+        self.surveyanswers = [""]
+    }
 }
 
 class Survey: Patient{
@@ -59,7 +70,7 @@ class Survey: Patient{
     var medication:[String]
     var painLevel:Int
 
-    init(patientSymptom: [String],  patPhysician: String, patientMeds: [String],  patientPainLevel: Int, patientName: String, DateOfBirth: String, patientSurgeries: String, patSurvAnswer: [String]) {
+    init(patientSymptom: [String],  patPhysician: String, patientMeds: [String],  patientPainLevel: Int, patientName: String, DateOfBirth: [Int], patientSurgeries: String, patSurvAnswer: [String]) {
         self.symptoms = patientSymptom
         self.medication = patientMeds
         self.painLevel = patientPainLevel

@@ -20,28 +20,6 @@ class SurveyQuestion {
 }
 
 let testList = PatientList(patientArray: [])
-var answer2 = "YES"
 
-repeat{
-    print("press 1 for add, press 2 for remove, press 3 for query")
-    let answer = readLine()
-    if answer == "1"{
-        testList.addPatient()
-    }
-    if answer == "2"{
-        testList.removePatient()
-    }
-    if answer == "3"{
-        testList.query()
-    }
-    print("do you want to do something else? type YES or NO")
-    answer2 = readLine()!
-}
-    while answer2 == "YES"
-
-
-
-
-
-
+displayMenu()
 
