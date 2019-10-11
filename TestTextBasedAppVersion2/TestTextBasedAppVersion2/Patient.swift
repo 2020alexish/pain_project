@@ -13,13 +13,6 @@ class PatientList{
         }
     }
     func addPatient(){
-        let nameQuestion = SurveyQuestion (text: "What is your name?")
-        nameQuestion.ask()
-        let patient_name = readLine()
-        let physicianQuestion = SurveyQuestion (text: "Who is your doctor?")
-        physicianQuestion.ask()
-        let physician_name = readLine()
-        let test = Patient(patientName: patient_name!, patientPhysician: physician_name!, DateOfBirth: "Yesterday", patientSurgeries: "Knee", surveyanswers: ["idk"])
         array.append(test)
     }
     func removePatient(){
@@ -32,15 +25,36 @@ class Patient{
     var name: String
     var typesurgery: String
     var physician: String
-    var DOB: String
+    var DOB: Int
     var surveyanswers: [String]
-    init(patientName: String, patientPhysician: String, DateOfBirth: String, patientSurgeries: String, surveyanswers: [String]){
+    init(patientName: String, patientPhysician: String, DateOfBirth: Int, patientSurgeries: String, surveyanswers: [String]){
         self.name = patientName
         self.DOB = DateOfBirth
         self.typesurgery = patientSurgeries
         self.physician = patientPhysician
         self.surveyanswers = surveyanswers
-    }
+        
+        }
+    init(){
+        let nameQuestion = SurveyQuestion (text: "What is your name?")
+        nameQuestion.ask()
+        self.name = readLine()!
+        let physicianQuestion = SurveyQuestion (text: "Who is your doctor?")
+        physicianQuestion.ask()
+       self.physician = readLine()!
+        let DOB = SurveyQuestion (text: "When is your birthday? Enter MM/DD/YYYY")
+        let DateOfBirth = readLine()!
+        let DOBArray = DateOfBirth.split(separator: "/", maxSplits: 3)
+        let month = DOBArray[0]
+        let day = DOBArray[1]
+        let year = DOBArray[2]
+        let birthday = year + month + day
+        self.DOB = Int(birthday)!
+        let surgeryTypeQuestion = SurveyQuestion (text: "What kind of surgery?")
+        surgeryTypeQuestion.ask()
+        self.typesurgery = readLine()!
+        self.surveyanswers = [""]
+        }
 }
 
 class Survey: Patient{
