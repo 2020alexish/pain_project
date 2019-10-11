@@ -8,12 +8,20 @@ class PatientList{
         let fullName = readLine()
         for patient in array {
             if (patient.name == fullName!) {
-                print(patient.name)
+                print("Patient Name: \(patient.name)")
+                print("Physician: \(patient.physician)")
+                print("Date of Birth: \(patient.DOB)")
+                print("Surgery Type: \(patient.typesurgery)")
             }
         }
     }
     func addPatient(){
+<<<<<<< HEAD
         array.append(test)
+=======
+        let user = Patient()
+        array.append(user)
+>>>>>>> alexis2
     }
     func removePatient(){
         print("what index?")
@@ -28,6 +36,9 @@ class Patient{
     var DOB: Int
     var surveyanswers: [String]
     init(patientName: String, patientPhysician: String, DateOfBirth: Int, patientSurgeries: String, surveyanswers: [String]){
+    var DOB: [Int]
+    var surveyanswers: [String]
+    init(patientName: String, patientPhysician: String, DateOfBirth: [Int], patientSurgeries: String, surveyanswers: [String]){
         self.name = patientName
         self.DOB = DateOfBirth
         self.typesurgery = patientSurgeries
@@ -35,6 +46,7 @@ class Patient{
         self.surveyanswers = surveyanswers
         
         }
+    }
     init(){
         let nameQuestion = SurveyQuestion (text: "What is your name?")
         nameQuestion.ask()
@@ -62,7 +74,7 @@ class Survey: Patient{
     var medication:[String]
     var painLevel:Int
 
-    init(patientSymptom: [String],  patPhysician: String, patientMeds: [String],  patientPainLevel: Int, patientName: String, DateOfBirth: String, patientSurgeries: String, patSurvAnswer: [String]) {
+    init(patientSymptom: [String],  patPhysician: String, patientMeds: [String],  patientPainLevel: Int, patientName: String, DateOfBirth: [Int], patientSurgeries: String, patSurvAnswer: [String]) {
         self.symptoms = patientSymptom
         self.medication = patientMeds
         self.painLevel = patientPainLevel
@@ -70,3 +82,22 @@ class Survey: Patient{
     }
 }
 
+func displaymenu(){
+    var answer2 = "YES"
+    repeat{
+        print("press 1 for add, press 2 for remove, press 3 for query")
+        let answer = readLine()
+        if answer == "1"{
+            testList.addPatient()
+        }
+        if answer == "2"{
+            testList.removePatient()
+        }
+        if answer == "3"{
+            testList.query()
+        }
+        print("do you want to do something else? type YES or NO")
+        answer2 = readLine()!
+    }
+        while answer2 == "YES"
+}
