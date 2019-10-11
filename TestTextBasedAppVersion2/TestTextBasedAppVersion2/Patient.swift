@@ -78,7 +78,7 @@ class Survey: Patient{
     }
 }
 
-func displayMenu(){
+func displaymenu(){
     var answer2 = "YES"
     repeat{
         print("press 1 for add, press 2 for remove, press 3 for query")

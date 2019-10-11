@@ -21,5 +21,6 @@ class SurveyQuestion {
 
 let testList = PatientList(patientArray: [])
 
-displayMenu()
+displaymenu()
+print("hello")
 
