@@ -20,6 +20,5 @@ class SurveyQuestion {
 }
 
 let testList = PatientList(patientArray: [])
-
 displaymenu()
 
