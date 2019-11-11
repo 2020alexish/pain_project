@@ -37,47 +37,22 @@ class Patient{
     var name: String
     var typesurgery: String
     var physician: String
-<<<<<<< HEAD
-    var DOB: [Int]
-    var surveyanswers: [String]
-    init(patientName: String, patientPhysician: String, DateOfBirth: [Int], patientSurgeries: String, surveyanswers: [String]) {
-=======
     var DOB: Int
     var surveyanswers: [String]
     init(patientName: String, patientPhysician: String, DateOfBirth: Int, patientSurgeries: String, surveyanswers: [String]){
->>>>>>> 92c8dc3d4472a194b94f87e9ff7114ef64b694c9
         self.name = patientName
         self.DOB = DateOfBirth
         self.typesurgery = patientSurgeries
         self.physician = patientPhysician
         self.surveyanswers = surveyanswers
-<<<<<<< HEAD
         }
-
-=======
-         }
->>>>>>> 92c8dc3d4472a194b94f87e9ff7114ef64b694c9
     init(){
         let nameQuestion = SurveyQuestion (text: "What is your name?")
         nameQuestion.ask()
         self.name = readLine()!
-<<<<<<< HEAD
-       
         let physicianQuestion = SurveyQuestion (text: "Who is your doctor?")
         physicianQuestion.ask()
         self.physician = readLine()!
-       
-=======
-        
-        
-        
-        let physicianQuestion = SurveyQuestion (text: "Who is your doctor?")
-        physicianQuestion.ask()
-       self.physician = readLine()!
-        
-        
-        
->>>>>>> 92c8dc3d4472a194b94f87e9ff7114ef64b694c9
         let DOB = SurveyQuestion (text: "When is your birthday? Enter MM/DD/YYYY")
         DOB.ask()
         let DateOfBirth = readLine()!
@@ -86,13 +61,8 @@ class Patient{
         let day = DOBArray[1]
         let year = DOBArray[2]
         let birthday = year + month + day
-<<<<<<< HEAD
-        self.DOB = [Int(birthday)!]
-=======
         self.DOB = Int(birthday)!
-        
-        
->>>>>>> 92c8dc3d4472a194b94f87e9ff7114ef64b694c9
+
         
         let surgeryTypeQuestion = SurveyQuestion (text: "What kind of surgery?")
         surgeryTypeQuestion.ask()
@@ -109,7 +79,7 @@ class Survey: Patient{
         self.symptoms = patientSymptom
         self.medication = patientMeds
         self.painLevel = patientPainLevel
-        super.init(patientName: patientName, patientPhysician: patPhysician, DateOfBirth: [DateOfBirth], patientSurgeries: patientSurgeries, surveyanswers: patSurvAnswer)
+        super.init(patientName: patientName, patientPhysician: patPhysician, DateOfBirth: DateOfBirth, patientSurgeries: patientSurgeries, surveyanswers: patSurvAnswer)
     }
 }
     func displaymenu(){
