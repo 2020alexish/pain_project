@@ -22,9 +22,10 @@ class PatientList{
         }
     }
     func addPatient(){
-        let user = Patient()
-        array.append(user)
+        let user = Survey()
+        array.append(user.createPatient())
     }
+    
     func removePatient(){
         print("what index?")
         let index = Int(readLine()!)
@@ -43,7 +44,6 @@ class Patient{
     var DOB: Int
     var surveyanswers: [String]
     init(patientName: String, patientPhysician: String, DateOfBirth: Int, patientSurgeries: String, surveyanswers: [String]){
->>>>>>> 92c8dc3d4472a194b94f87e9ff7114ef64b694c9
         self.name = patientName
         self.DOB = DateOfBirth
         self.typesurgery = patientSurgeries
@@ -61,10 +61,27 @@ class Patient{
         self.physician = readLine()!
        
 
+        self.medications = []
+        self.PainArray = []
+    }
+    
+    func addPainSurvey(){
+        let painpain = PainSurvey()
+        PainArray.append(painpain.createPain())
+    }
+}
+
+class Survey: Patient
+   
+    init(){
+        let nameQuestion = SurveyQuestion (text: "What is your name?")
+        nameQuestion.ask()
+        var Name = readLine()!
+        
         
         let physicianQuestion = SurveyQuestion (text: "Who is your doctor?")
         physicianQuestion.ask()
-       self.physician = readLine()!
+        var Physician = readLine()!
         
         let DOB = SurveyQuestion (text: "When is your birthday? Enter MM/DD/YYYY")
         DOB.ask()
@@ -75,17 +92,77 @@ class Patient{
         let year = DOBArray[2]
         let birthday = year + month + day
         self.DOB = Int(birthday)!
+        var DOB = Int(birthday)!
         
         let surgeryTypeQuestion = SurveyQuestion (text: "What kind of surgery?")
         surgeryTypeQuestion.ask()
-        self.typesurgery = readLine()!
-        self.surveyanswers = [""]
-        }
+        var SurgType = readLine()!
+        
+        super.init(patientName: Name, patientPhysician: Physician, DateOfBirth: DOB, patientSurgeries: SurgType)
+    }
+    
+    func createPatient()->Patient{
+        let patient = Patient(patientName:self.name, patientPhysician: self.physician, DateOfBirth:self.DOB, patientSurgeries:self.typesurgery)
+        return patient
+    }
 }
-class Survey: Patient{
-    var symptoms:[String]
-    var medication:[String]
+class Pain {
+    var symptom:String
     var painLevel:Int
+    var numSymptoms:Int
+    var numOfPainPlaces:Int
+    
+    init(patSymptom: String, patPainLevel:Int, patNumSymtpoms:Int, patNumOfPainPlaces:Int) {
+        self.painLevel = patPainLevel
+        self.numSymptoms = patNumSymtpoms
+        self.numOfPainPlaces = patNumOfPainPlaces
+        self.symptom = patSymptom
+    }
+}
+class PainSurvey: Pain {
+    init(){
+        var More:String
+        repeat {
+            let place = SurveyQuestion (text: "Where does it hurt?")
+            place.ask()
+            var Place = readLine()!
+            let level = SurveyQuestion (text: "What is your pain level on a scale of 1-5?")
+            level.ask()
+            var Level = readLine()!
+            let nextQ = SurveyQuestion (text: "Does it hurt anywhere else [Y for yes, N for no]")
+            nextQ.ask()
+            More = readLine()!
+        } while More == "Y"
+        var moreSymps: String
+        repeat {
+            let symptoms = SurveyQuestion (text: "What are your symptoms")
+            symptoms.ask()
+            
+            var Symptoms = readLine()!
+            let nextQ = SurveyQuestion (text: "Do you have any more symtpoms? [Y for yes, N for no]")
+            nextQ.ask()
+            moreSymps = readLine()!
+        } while moreSymps == "Y"
+        super.init(patSymptom: symptom, patPainLevel: painLevel, patNumSymtpoms: numSymptoms, patNumOfPainPlaces: numOfPainPlaces)
+    }
+    
+    func createPain()->Pain {
+        let pain = Pain(patSymptom: self.symptom, patPainLevel: self.painLevel, patNumSymtpoms: self.numSymptoms, patNumOfPainPlaces: self.numOfPainPlaces)
+        return pain
+    }
+
+}
+
+class Medication {
+    var medName:String
+    var numMedication:Int
+    var dosage:Int
+    var timesADay:Int
+    init(patMedName:String, patNumMed: Int, patDose: Int, patTimesADay: Int) {
+        self.medName = patMedName
+        self.numMedication = patNumMed
+        self.dosage = patDose
+        self.timesADay = patTimesADay
 
     init(patientSymptom: [String],  patPhysician: String, patientMeds: [String],  patientPainLevel: Int, patientName: String, DateOfBirth: Int, patientSurgeries: String, patSurvAnswer: [String]) {
         self.symptoms = patientSymptom
@@ -97,7 +174,7 @@ class Survey: Patient{
     func displaymenu(){
         var answer2 = "YES"
         repeat{
-            print("press 1 for add, press 2 for remove, press 3 for query")
+            print("press 1 for add, press 2 for remove, press 3 for query, press 4 for survey")
             let answer = readLine()
             if answer == "1"{
                 testList.addPatient()
@@ -106,6 +183,9 @@ class Survey: Patient{
                 testList.removePatient()
             }
             if answer == "3"{
+                testList.query()
+            }
+            if answer == "4"{
                 testList.query()
             }
             print("do you want to do something else? type YES or NO")
