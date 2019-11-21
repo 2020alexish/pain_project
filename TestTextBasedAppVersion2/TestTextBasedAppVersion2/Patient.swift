@@ -40,17 +40,24 @@ class Patient{
     var physician: String
     var DOB: Int
     var PainArray: [Pain]
-    init(patientName: String, patientPhysician: String, DateOfBirth: Int, patientSurgeries: String, PainArray: [Pain]){
+    var MedArray: [Medications]
+    init(patientName: String, patientPhysician: String, DateOfBirth: Int, patientSurgeries: String, PainArray: [Pain], MedArray: [Medications]){
         self.name = patientName
         self.DOB = DateOfBirth
         self.typesurgery = patientSurgeries
         self.physician = patientPhysician
         self.PainArray = PainArray
+        self.MedArray = MedArray
         }
     
     func addPainSurvey(){
         let painpain = PainSurvey()
         self.PainArray.append(painpain.createPain())
+    }
+    
+    func addMedicationSurvey(){
+        let medmed = MedSurvey()
+        self.MedArray.append(medmed.createMedications())
     }
 }
 
@@ -81,11 +88,11 @@ class Survey: Patient{
         surgeryTypeQuestion.ask()
         let SurgType = readLine()!
         
-        super.init(patientName: Name, patientPhysician: Physician, DateOfBirth: DOB, patientSurgeries: SurgType, PainArray: [])
+        super.init(patientName: Name, patientPhysician: Physician, DateOfBirth: DOB, patientSurgeries: SurgType, PainArray: [], MedArray: [])
     }
     
     func createPatient()->Patient{
-        let patient = Patient(patientName:self.name, patientPhysician: self.physician, DateOfBirth:self.DOB, patientSurgeries:self.typesurgery, PainArray: self.PainArray)
+        let patient = Patient(patientName:self.name, patientPhysician: self.physician, DateOfBirth:self.DOB, patientSurgeries:self.typesurgery, PainArray: self.PainArray, MedArray: self.MedArray)
         return patient
     }
 }
@@ -126,10 +133,39 @@ class PainSurvey: Pain {
     }
 }
 
+class Medications{
+    var medName:String
+    var dose:Int
+    // var time: String create time object
+    
+    init(medName: String, dose:Int) {
+        self.medName = medName
+        self.dose = dose
+    }
+}
+class MedSurvey: Medications {
+    init(){
+        let medName = SurveyQuestion (text: "What's the name of your medication?")
+        medName.ask()
+        var med = readLine()!
+        let dose = SurveyQuestion (text: "How many did you take?")
+        dose.ask()
+        let Dose = readLine()!
+        var pDose = Int(Dose)!
+
+        super.init(medName: med, dose:pDose)
+    }
+    
+    func createMedications()->Medications {
+        let medication = Medications(medName: self.medName, dose: self.dose)
+        return medication
+    }
+}
+
     func displaymenu(){
         var answer2 = "YES"
         repeat{
-            print("press 1 for add, press 2 for remove, press 3 for query, press 4 to take the pain survey")
+            print("press 1 for add, press 2 for remove, press 3 for query, press 4 to take the pain survey, press 5 to take medication survey")
             let answer = readLine()
             if answer == "1"{
                 testList.addPatient()
@@ -146,6 +182,9 @@ class PainSurvey: Pain {
                 let surveyIndex = readLine()!
                 let intSurveyIndex = Int(surveyIndex)!
                 testList.array[intSurveyIndex].addPainSurvey()
+            }
+            if answer == "5"{
+                testList.array[0].addMedicationSurvey()
             }
             print("do you want to do something else? type YES or NO")
             answer2 = readLine()!
