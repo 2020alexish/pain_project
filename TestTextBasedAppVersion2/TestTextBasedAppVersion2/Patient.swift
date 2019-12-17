@@ -1,3 +1,5 @@
+import Foundation
+
 class PatientList{
     var array : [Patient]
     init(patientArray: [Patient]){
@@ -7,6 +9,7 @@ class PatientList{
         print("what is the patient's name?")
         let fullName = readLine()
         for patient in array {
+//            print(patient.patientstring())
             if (patient.name == fullName!) {
                 print("Patient Name: \(patient.name)")
                 print("Physician: \(patient.physician)")
@@ -21,6 +24,7 @@ class PatientList{
             }
         }
     }
+   
     func addPatient(){
         let user = Survey()
         self.array.append(user.createPatient())
@@ -58,6 +62,18 @@ class Patient{
     func addMedicationSurvey(){
         let medmed = MedSurvey()
         self.MedArray.append(medmed.createMedications())
+    }
+    func getPatientFile(){
+        var patientString = "\(self.name), \(self.typesurgery), \(self.DOB), \(self.physician), \(self.PainArray)"
+    }
+    func stringToObject(patientString: String){
+        let BrokenString = patientString.split(separator: ",")
+        self.name = String(BrokenString[0])
+        self.typesurgery = String(BrokenString[1])
+        self.DOB = Int(BrokenString[2])!
+        self.physician = String(BrokenString[3])
+        self.PainArray = []
+        self.MedArray = []
     }
 }
 
@@ -142,6 +158,7 @@ class Medications{
         self.medName = medName
         self.dose = dose
     }
+    
 }
 class MedSurvey: Medications {
     init(){
@@ -186,9 +203,35 @@ class MedSurvey: Medications {
             if answer == "5"{
                 testList.array[0].addMedicationSurvey()
             }
+            if answer == "6"{
+                let filemgr = FileManager.default
+                if filemgr.fileExists(atPath: "/Users/2020noal/workspace/pain_project/TestTextBasedAppVersion2/TestTextBasedAppVersion2/testtest.txt") {
+                    print("File exists")
+                } else {
+                    print("File not found")
+                }
+                //read
+                var filepath1 = "/Users/2020noal/workspace/pain_project/TestTextBasedAppVersion2/TestTextBasedAppVersion2/testtest.txt"
+                let databuffer = filemgr.contents(atPath: filepath1)
+                print(String(data: databuffer!, encoding: .utf8)!)
+               //write
+                let file: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+                if file == nil {
+                    print("File open failed")
+                } else {
+                    let data = ("black dog" as
+                        NSString).data(using: String.Encoding.utf8.rawValue)
+                    file?.seek(toFileOffset: 12)
+                    file?.write(data!)
+                    file?.closeFile()
+                }
+            }
             print("do you want to do something else? type YES or NO")
             answer2 = readLine()!
         }
             while answer2 == "YES"
+        if answer2 == "6" {
+            print("no")
+        }
     }
 
