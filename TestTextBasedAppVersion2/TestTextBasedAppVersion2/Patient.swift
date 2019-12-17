@@ -1,3 +1,5 @@
+import Foundation
+
 class PatientList{
     var array : [Patient]
     init(patientArray: [Patient]){
@@ -9,6 +11,9 @@ class PatientList{
         for patient in array {
             if (patient.firstName == fullName!) {
                 print("Patient Name: \(patient.lastName), \(patient.firstName)")
+//            print(patient.patientstring())
+            if (patient.name == fullName!) {
+                print("Patient Name: \(patient.name)")
                 print("Physician: \(patient.physician)")
                 let dobToPrint = patient.DOB
                 let dobArray2 = String(dobToPrint)
@@ -24,6 +29,7 @@ class PatientList{
             }
         }
     }
+   
     func addPatient(){
         let user = Survey()
         self.array.append(user.createPatient())
@@ -88,6 +94,7 @@ class Patient{
         let medmed = MedSurvey()
         self.MedArray.append(medmed.createMedications())
     }
+<<<<<<< HEAD
     func getPatientFile()->String{
         var patientString = "\(self.firstName), \(self.lastName), \(self.gender), \(self.typesurgery), \(self.DOB), \(self.physician)"
         return patientString
@@ -95,6 +102,20 @@ class Patient{
     
     
     
+=======
+    func getPatientFile(){
+        var patientString = "\(self.name), \(self.typesurgery), \(self.DOB), \(self.physician), \(self.PainArray)"
+    }
+    func stringToObject(patientString: String){
+        let BrokenString = patientString.split(separator: ",")
+        self.name = String(BrokenString[0])
+        self.typesurgery = String(BrokenString[1])
+        self.DOB = Int(BrokenString[2])!
+        self.physician = String(BrokenString[3])
+        self.PainArray = []
+        self.MedArray = []
+    }
+>>>>>>> 231dde6c495f48d59fe6dbba749b11118b3bd64d
 }
 
 class Survey: Patient{
@@ -210,6 +231,7 @@ class MedSurvey: Medications {
     }
 }
 
+<<<<<<< HEAD
 class Time{
     var numTime: Int
     var AM: Bool
@@ -274,6 +296,62 @@ func displayPrimaryMenu(){
     if answer == "1"{
         testList.addPatient()
         displaySurveyMenu()
+=======
+    func displaymenu(){
+        var answer2 = "YES"
+        repeat{
+            print("press 1 for add, press 2 for remove, press 3 for query, press 4 to take the pain survey, press 5 to take medication survey")
+            let answer = readLine()
+            if answer == "1"{
+                testList.addPatient()
+            }
+            if answer == "2"{
+                testList.removePatient()
+            }
+            if answer == "3"{
+                testList.query()
+            }
+            if answer == "4"{
+                let surveyQ = SurveyQuestion (text: "What is your patient number?")
+                surveyQ.ask()
+                let surveyIndex = readLine()!
+                let intSurveyIndex = Int(surveyIndex)!
+                testList.array[intSurveyIndex].addPainSurvey()
+            }
+            if answer == "5"{
+                testList.array[0].addMedicationSurvey()
+            }
+            if answer == "6"{
+                let filemgr = FileManager.default
+                if filemgr.fileExists(atPath: "/Users/2020noal/workspace/pain_project/TestTextBasedAppVersion2/TestTextBasedAppVersion2/testtest.txt") {
+                    print("File exists")
+                } else {
+                    print("File not found")
+                }
+                //read
+                var filepath1 = "/Users/2020noal/workspace/pain_project/TestTextBasedAppVersion2/TestTextBasedAppVersion2/testtest.txt"
+                let databuffer = filemgr.contents(atPath: filepath1)
+                print(String(data: databuffer!, encoding: .utf8)!)
+               //write
+                let file: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+                if file == nil {
+                    print("File open failed")
+                } else {
+                    let data = ("black dog" as
+                        NSString).data(using: String.Encoding.utf8.rawValue)
+                    file?.seek(toFileOffset: 12)
+                    file?.write(data!)
+                    file?.closeFile()
+                }
+            }
+            print("do you want to do something else? type YES or NO")
+            answer2 = readLine()!
+        }
+            while answer2 == "YES"
+        if answer2 == "6" {
+            print("no")
+        }
+>>>>>>> 231dde6c495f48d59fe6dbba749b11118b3bd64d
     }
     
     if answer == "2"{
