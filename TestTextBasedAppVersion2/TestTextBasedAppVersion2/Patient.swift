@@ -94,15 +94,12 @@ class Patient{
         let medmed = MedSurvey()
         self.MedArray.append(medmed.createMedications())
     }
-<<<<<<< HEAD
     func getPatientFile()->String{
         var patientString = "\(self.firstName), \(self.lastName), \(self.gender), \(self.typesurgery), \(self.DOB), \(self.physician)"
         return patientString
     }
     
-    
-    
-=======
+
     func getPatientFile(){
         var patientString = "\(self.name), \(self.typesurgery), \(self.DOB), \(self.physician), \(self.PainArray)"
     }
@@ -115,7 +112,6 @@ class Patient{
         self.PainArray = []
         self.MedArray = []
     }
->>>>>>> 231dde6c495f48d59fe6dbba749b11118b3bd64d
 }
 
 class Survey: Patient{
@@ -231,7 +227,6 @@ class MedSurvey: Medications {
     }
 }
 
-<<<<<<< HEAD
 class Time{
     var numTime: Int
     var AM: Bool
@@ -296,7 +291,7 @@ func displayPrimaryMenu(){
     if answer == "1"{
         testList.addPatient()
         displaySurveyMenu()
-=======
+
     func displaymenu(){
         var answer2 = "YES"
         repeat{
@@ -351,7 +346,6 @@ func displayPrimaryMenu(){
         if answer2 == "6" {
             print("no")
         }
->>>>>>> 231dde6c495f48d59fe6dbba749b11118b3bd64d
     }
     
     if answer == "2"{
@@ -365,8 +359,9 @@ func displayPrimaryMenu(){
         let surveyIndex = readLine()!
         let intSurveyIndex = Int(surveyIndex)!
         displaySurveyMenu()
+        }
     }
-}
+    
 
 func displaySurveyMenu(){
     var answer2 = ""
@@ -399,7 +394,7 @@ func displaySurveyMenu(){
         answer2 = readLine()!
     }
         while (answer2 == ("YES") || answer2 == ("yes"))
-}
+
 //    func displaymenu(){
 //        var answer2 = "YES"
 //        repeat{
