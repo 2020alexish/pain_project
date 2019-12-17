@@ -20,5 +20,11 @@ class SurveyQuestion {
 }
 
 let testList = PatientList(patientArray: [])
-displaymenu()
+//let testTime = Time(userInput: "02:30 PM")
+//print(testTime.AM)
+//print(testTime.numTime)
+
+//load all previous patients
+displayPrimaryMenu() //loads first menu
+
 
