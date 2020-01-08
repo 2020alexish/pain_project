@@ -25,6 +25,7 @@ let testList = PatientList(patientArray: [])
 //print(testTime.numTime)
 
 //load all previous patients
+
 displayPrimaryMenu() //loads first menu
 
 

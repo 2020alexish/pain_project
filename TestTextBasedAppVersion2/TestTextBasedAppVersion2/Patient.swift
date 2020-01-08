@@ -1,19 +1,22 @@
 import Foundation
 
-class PatientList{
+class PatientList
+{
     var array : [Patient]
     init(patientArray: [Patient]){
         self.array = patientArray
     }
-    func query(){
+    func query()
+    {
         print("what is the patient's name?")
         let fullName = readLine()
-        for patient in array {
-            if (patient.firstName == fullName!) {
+        for patient in array
+        {
+            if (patient.firstName == fullName!)
+            {
                 print("Patient Name: \(patient.lastName), \(patient.firstName)")
-//            print(patient.patientstring())
-            if (patient.name == fullName!) {
-                print("Patient Name: \(patient.name)")
+            if (patient.firstName == fullName!) {
+                print("Patient Name: \(patient.firstName)")
                 print("Physician: \(patient.physician)")
                 let dobToPrint = patient.DOB
                 let dobArray2 = String(dobToPrint)
@@ -26,10 +29,10 @@ class PatientList{
             }
              if (patient.firstName != fullName!) {
                 print("this patient does not exist")
+                }
             }
         }
     }
-   
     func addPatient(){
         let user = Survey()
         self.array.append(user.createPatient())
@@ -45,13 +48,9 @@ class PatientList{
             self.array.remove(at: index!)
         }
     }
-   
-    func savePatient(){
-        for patient in array{
-            print(patient.getPatientFile())
-        }
+
     }
-}
+
 
 
 class Patient{
@@ -101,11 +100,11 @@ class Patient{
     
 
     func getPatientFile(){
-        var patientString = "\(self.name), \(self.typesurgery), \(self.DOB), \(self.physician), \(self.PainArray)"
+        var patientString = "\(self.firstName), \(self.typesurgery), \(self.DOB), \(self.physician), \(self.PainArray)"
     }
     func stringToObject(patientString: String){
         let BrokenString = patientString.split(separator: ",")
-        self.name = String(BrokenString[0])
+        self.firstName = String(BrokenString[0])
         self.typesurgery = String(BrokenString[1])
         self.DOB = Int(BrokenString[2])!
         self.physician = String(BrokenString[3])
@@ -117,22 +116,74 @@ class Patient{
 class Survey: Patient{
    
     init(){
+        let filepath1 = "/Users/2020alexish/workspace/pain_project/TestTextBasedAppVersion2/TestTextBasedAppVersion2/testtest.txt"
+        let filemgr = FileManager.default
+        let databuffer = filemgr.contents(atPath: filepath1)
+
+        //gives each patient a patient #
+        
+        //create new file
+        filemgr.createFile(atPath: filepath1, contents: databuffer, attributes: nil)
+        
         let firstNameQuestion = SurveyQuestion (text: "What is your first name?")
         firstNameQuestion.ask()
         let FirstName = readLine()!
+        //writes in file testtest
+        let file: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if file == nil {
+            print("File open failed")
+        } else {
+            let data = ("First Name: \(FirstName) " as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            file?.seek(toFileOffset: 0)
+            file?.write(data!)
+            file?.closeFile()
+        }
+        
+        
         
         let lastNameQuestion = SurveyQuestion (text: "What is your last name?")
         lastNameQuestion.ask()
         let LastName = readLine()!
+        let afile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if afile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nLast Name: \(LastName)" as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            afile?.seek(toFileOffset: UInt64(13 + FirstName.count))
+            afile?.write(data!)
+            afile?.closeFile()
+        }
         
         let genderQuestion = SurveyQuestion (text: "What is your gender?")
         genderQuestion.ask()
         let Gender = readLine()!
+        let bfile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if bfile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nGender: \(Gender) " as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            bfile?.seek(toFileOffset: UInt64(13 + FirstName.count + 12 + LastName.count))
+            bfile?.write(data!)
+            bfile?.closeFile()
+        }
         
         
         let physicianQuestion = SurveyQuestion (text: "Who is your doctor?")
         physicianQuestion.ask()
         let Physician = readLine()!
+        let cfile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if cfile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nPhysician: \(Physician) " as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            cfile?.seek(toFileOffset: UInt64(13 + FirstName.count + 12 + LastName.count + 9 + Gender.count))
+            cfile?.write(data!)
+            cfile?.closeFile()
+        }
         
         
         let DOBquestion = SurveyQuestion (text: "When is your birthday? Enter MM/DD/YYYY")
@@ -145,10 +196,34 @@ class Survey: Patient{
         let year = DOBArray[2]
         let birthday = year + month + day
         let DOB = Int(birthday)!
+        let dfile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if dfile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nDate Of Birth: \(DateOfBirth) " as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            dfile?.seek(toFileOffset: UInt64(13 + FirstName.count + 12 + LastName.count + 9 + Gender.count + 12 + Physician.count))
+            dfile?.write(data!)
+            dfile?.closeFile()
+        }
+        
         let surgeryTypeQuestion = SurveyQuestion (text: "What kind of surgery?")
         surgeryTypeQuestion.ask()
         let SurgType = readLine()!
-        
+        let efile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if efile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nSurgery Type: \(SurgType)" as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            efile?.seek(toFileOffset: UInt64(13 + FirstName.count + 12 + LastName.count + 9 + Gender.count + 12 + Physician.count+26))
+            efile?.write(data!)
+            efile?.closeFile()
+        }
+        let fileLength = (13 + FirstName.count + 12 + LastName.count + 9 + Gender.count + 12 + Physician.count+26)
+        print(fileLength)
+
+       
         super.init(patientFirstName: FirstName, patientLastName: LastName, patientGender: Gender, patientPhysician: Physician, DateOfBirth: DOB, patientSurgeries: SurgType, PainArray: [], MedArray: [])
     }
     
@@ -172,19 +247,67 @@ class Pain {
 
 class PainSurvey: Pain {
     init(){
+        var filepath1 = "/Users/2020alexish/workspace/pain_project/TestTextBasedAppVersion2/TestTextBasedAppVersion2/testtest.txt"
+        let filemgr = FileManager.default
+        let databuffer = filemgr.contents(atPath: filepath1)
+        
+        //creates instance of survey in patient file
+//        let file: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+//        if file == nil {
+//            print("File open failed")
+//        } else {
+//            let data = ("\nSurvey Date: )" as
+//                NSString).data(using: String.Encoding.utf8.rawValue)
+//            file?.seek(toFileOffset: UInt64(13 + FirstName.count + 12 + LastName.count + 9 + Gender.count + 12 + Physician.count+26))
+//            file?.write(data!)
+//            file?.closeFile()
+//        }
+        
         let place = SurveyQuestion (text: "Where does it hurt?")
         place.ask()
         let Place = readLine()!
+        //adds pain level to file
+        let afile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if afile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nLocation of Pain: \(Place)" as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            afile?.seek(toFileOffset: UInt64(100))
+            afile?.write(data!)
+            afile?.closeFile()
+        }
+        
         let level = SurveyQuestion (text: "What is your pain level on a scale of 1-5?")
         level.ask()
         let Level = readLine()!
         let pLevel = Int(Level)!
-        
+        let bfile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if bfile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nPain Level: \(Level)" as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            bfile?.seek(toFileOffset: UInt64(119 + Place.count))
+            bfile?.write(data!)
+            bfile?.closeFile()
+        }
     
         let symptoms = SurveyQuestion (text: "What are your symptoms")
         symptoms.ask()
         
         let Symptoms = readLine()!
+        
+        let cfile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if cfile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nSymptoms: \(Symptoms)" as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            cfile?.seek(toFileOffset: UInt64(132 + Place.count))
+            cfile?.write(data!)
+            cfile?.closeFile()
+        }
         let nextQ = SurveyQuestion (text: "Do you have any more symtpoms? [Y for yes, N for no]")
     
         super.init(patSymptom: Symptoms, patPainLevel: pLevel, patPlace: Place)
@@ -287,12 +410,8 @@ class Time{
 func displayPrimaryMenu(){
     print("Press 1 to add a patient, press 2 to remove a patient, press 3 if you already have an account")
     let answer = readLine()
-    
-    if answer == "1"{
-        testList.addPatient()
-        displaySurveyMenu()
-
-    func displaymenu(){
+    func displaymenu()
+        {
         var answer2 = "YES"
         repeat{
             print("press 1 for add, press 2 for remove, press 3 for query, press 4 to take the pain survey, press 5 to take medication survey")
@@ -318,26 +437,26 @@ func displayPrimaryMenu(){
             }
             if answer == "6"{
                 let filemgr = FileManager.default
-                if filemgr.fileExists(atPath: "/Users/2020noal/workspace/pain_project/TestTextBasedAppVersion2/TestTextBasedAppVersion2/testtest.txt") {
+                if filemgr.fileExists(atPath: "/Users/2020alexish/workspace/pain_project/TestTextBasedAppVersion2/TestTextBasedAppVersion2/testtest.txt") {
                     print("File exists")
                 } else {
                     print("File not found")
                 }
-                //read
-                var filepath1 = "/Users/2020noal/workspace/pain_project/TestTextBasedAppVersion2/TestTextBasedAppVersion2/testtest.txt"
+                //reads file testtest
+                let filepath1 = "/Users/2020alexish/workspace/pain_project/TestTextBasedAppVersion2/TestTextBasedAppVersion2/testtest.txt"
                 let databuffer = filemgr.contents(atPath: filepath1)
                 print(String(data: databuffer!, encoding: .utf8)!)
-               //write
-                let file: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
-                if file == nil {
-                    print("File open failed")
-                } else {
-                    let data = ("black dog" as
-                        NSString).data(using: String.Encoding.utf8.rawValue)
-                    file?.seek(toFileOffset: 12)
-                    file?.write(data!)
-                    file?.closeFile()
-                }
+               //writes in file testtest
+//                let file: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+//                if file == nil {
+//                    print("File open failed")
+//                } else {
+//                    let data = ("black dog" as
+//                        NSString).data(using: String.Encoding.utf8.rawValue)
+//                    file?.seek(toFileOffset: 12)
+//                    file?.write(data!)
+//                    file?.closeFile()
+//                }
             }
             print("do you want to do something else? type YES or NO")
             answer2 = readLine()!
@@ -358,42 +477,15 @@ func displayPrimaryMenu(){
         surveyQ.ask()
         let surveyIndex = readLine()!
         let intSurveyIndex = Int(surveyIndex)!
-        displaySurveyMenu()
         }
-    }
     
+    
+    if answer == "1"{
+        testList.addPatient()
+        displaymenu()
+    }
+    }
 
-func displaySurveyMenu(){
-    var answer2 = ""
-    repeat{
-        print("press 3 to see patient info, press 4 to take the pain survey, press 5 to take medication survey")
-        let answer = readLine()
-    
-        if answer == "3"{
-            testList.query()
-        }
-        if answer == "4"{
-            let surveyQ = SurveyQuestion (text: "What is your patient number?")
-            surveyQ.ask()
-            let surveyIndex = readLine()!
-            let intSurveyIndex = Int(surveyIndex)!
-            testList.array[intSurveyIndex].addPainSurvey()
-        }
-        if answer == "5"{
-            let surveyQ = SurveyQuestion (text: "What is your patient number?")
-            surveyQ.ask()
-            let surveyIndex = readLine()!
-            let intSurveyIndex = Int(surveyIndex)!
-            testList.array[intSurveyIndex].addMedicationSurvey()
-        }
-        if answer == "6"{
-            testList.savePatient()
-        }
-        
-        print("do you want to do something else? type YES or NO")
-        answer2 = readLine()!
-    }
-        while (answer2 == ("YES") || answer2 == ("yes"))
 
 //    func displaymenu(){
 //        var answer2 = "YES"
