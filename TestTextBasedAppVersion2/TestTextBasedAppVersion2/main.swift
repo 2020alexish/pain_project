@@ -29,3 +29,5 @@ let testList = PatientList(patientArray: [])
 displayPrimaryMenu() //loads first menu
 
 
+
+
