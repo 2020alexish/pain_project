@@ -26,6 +26,7 @@ class PatientList{
             }
              if (patient.firstName != fullName!) {
                 print("this patient does not exist")
+                }
             }
         }
     }
@@ -120,19 +121,84 @@ class Survey: Patient{
         let firstNameQuestion = SurveyQuestion (text: "What is your first name?")
         firstNameQuestion.ask()
         let FirstName = readLine()!
+        let filepath1 = "/Users/2020alexish/workspace/pain_project/TestTextBasedAppVersion2/TestTextBasedAppVersion2/test.xml"
+        let filemgr = FileManager.default
+        let databuffer = filemgr.contents(atPath: filepath1)
+
+        //gives each patient a patient #
+        
+        //create new file
+        filemgr.createFile(atPath: filepath1, contents: databuffer, attributes: nil)
+        
+        
+        //writes in file testtest
+        let date = NSDate()
+        let qfile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if qfile == nil {
+            print("File open failed")
+        } else {
+            let data = ("Creation Date: \(date)" as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            qfile?.seek(toFileOffset: 0)
+            qfile?.write(data!)
+            qfile?.closeFile()
+        }
+        
+       
+        let file: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if file == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nFirst Name: \(FirstName) " as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            file?.seek(toFileOffset: 40)
+            file?.write(data!)
+            file?.closeFile()
+        }
+        
         
         let lastNameQuestion = SurveyQuestion (text: "What is your last name?")
         lastNameQuestion.ask()
         let LastName = readLine()!
+        let afile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if afile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nLast Name: \(LastName)" as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            afile?.seek(toFileOffset: UInt64(53 + FirstName.count))
+            afile?.write(data!)
+            afile?.closeFile()
+        }
         
         let genderQuestion = SurveyQuestion (text: "What is your gender?")
         genderQuestion.ask()
         let Gender = readLine()!
+        let bfile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if bfile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nGender: \(Gender) " as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            bfile?.seek(toFileOffset: UInt64(53 + FirstName.count + 12 + LastName.count))
+            bfile?.write(data!)
+            bfile?.closeFile()
+        }
         
         
         let physicianQuestion = SurveyQuestion (text: "Who is your doctor?")
         physicianQuestion.ask()
         let Physician = readLine()!
+        let cfile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if cfile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nPhysician: \(Physician) " as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            cfile?.seek(toFileOffset: UInt64(53 + FirstName.count + 12 + LastName.count + 9 + Gender.count))
+            cfile?.write(data!)
+            cfile?.closeFile()
+        }
         
         
         let DOBquestion = SurveyQuestion (text: "When is your birthday? Enter MM/DD/YYYY")
@@ -145,10 +211,34 @@ class Survey: Patient{
         let year = DOBArray[2]
         let birthday = year + month + day
         let DOB = Int(birthday)!
+        let dfile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if dfile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nDate Of Birth: \(DateOfBirth) " as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            dfile?.seek(toFileOffset: UInt64(53 + FirstName.count + 12 + LastName.count + 9 + Gender.count + 12 + Physician.count))
+            dfile?.write(data!)
+            dfile?.closeFile()
+        }
+        
         let surgeryTypeQuestion = SurveyQuestion (text: "What kind of surgery?")
         surgeryTypeQuestion.ask()
         let SurgType = readLine()!
-        
+        let efile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if efile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nSurgery Type: \(SurgType)" as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            efile?.seek(toFileOffset: UInt64(53 + FirstName.count + 12 + LastName.count + 9 + Gender.count + 12 + Physician.count+26))
+            efile?.write(data!)
+            efile?.closeFile()
+        }
+        let fileLength = (53 + FirstName.count + 12 + LastName.count + 9 + Gender.count + 12 + Physician.count+26)
+        print(fileLength)
+
+       
         super.init(patientFirstName: FirstName, patientLastName: LastName, patientGender: Gender, patientPhysician: Physician, DateOfBirth: DOB, patientSurgeries: SurgType, PainArray: [], MedArray: [])
     }
     
@@ -172,19 +262,68 @@ class Pain {
 
 class PainSurvey: Pain {
     init(){
+        var filepath1 = "/Users/2020alexish/workspace/pain_project/TestTextBasedAppVersion2/TestTextBasedAppVersion2/A"
+        let filemgr = FileManager.default
+        let databuffer = filemgr.contents(atPath: filepath1)
+        
+
+        let date = NSDate()
+        let file: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if file == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nSurvey Date and Time: \(date)" as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            file?.seek(toFileOffset: 80)
+            file?.write(data!)
+            file?.closeFile()
+        }
+        
         let place = SurveyQuestion (text: "Where does it hurt?")
         place.ask()
         let Place = readLine()!
+        //adds pain level to file
+        let afile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if afile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nLocation of Pain: \(Place)" as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            afile?.seek(toFileOffset: UInt64(150))
+            afile?.write(data!)
+            afile?.closeFile()
+        }
+        
         let level = SurveyQuestion (text: "What is your pain level on a scale of 1-5?")
         level.ask()
         let Level = readLine()!
         let pLevel = Int(Level)!
-        
+        let bfile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if bfile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nPain Level: \(Level)" as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            bfile?.seek(toFileOffset: UInt64(169 + Place.count))
+            bfile?.write(data!)
+            bfile?.closeFile()
+        }
     
         let symptoms = SurveyQuestion (text: "What are your symptoms")
         symptoms.ask()
         
         let Symptoms = readLine()!
+        
+        let cfile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if cfile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nSymptoms: \(Symptoms)" as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            cfile?.seek(toFileOffset: UInt64(182 + Place.count))
+            cfile?.write(data!)
+            cfile?.closeFile()
+        }
         let nextQ = SurveyQuestion (text: "Do you have any more symtpoms? [Y for yes, N for no]")
     
         super.init(patSymptom: Symptoms, patPainLevel: pLevel, patPlace: Place)
@@ -207,16 +346,67 @@ class Medications{
 }
 class MedSurvey: Medications {
     init(){
+        var filepath1 = "/Users/2020alexish/workspace/pain_project/TestTextBasedAppVersion2/TestTextBasedAppVersion2/A"
+        let filemgr = FileManager.default
+        let databuffer = filemgr.contents(atPath: filepath1)
+        
+        let date = NSDate()
+        let file: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if file == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nSurvey Date and Time: \(date)" as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            file?.seek(toFileOffset: 80)
+            file?.write(data!)
+            file?.closeFile()
+        }
+        
         let medName = SurveyQuestion (text: "What's the name of your medication?")
         medName.ask()
         let med = readLine()!
+        
+        let hfile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if hfile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nMedication: \(med)" as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            hfile?.seek(toFileOffset: 300)
+            hfile?.write(data!)
+            hfile?.closeFile()
+        }
+        
         let dose = SurveyQuestion (text: "How many did you take?")
         dose.ask()
         let Dose = readLine()!
         let pDose = Int(Dose)!
+        
+        let afile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if afile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nDosage: \(Dose)" as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            afile?.seek(toFileOffset: UInt64(300 + med.count))
+            afile?.write(data!)
+            afile?.closeFile()
+        }
+        
         let time = SurveyQuestion (text: "What time did you take the medication? ex: 02:03 PM")
         time.ask()
         var medTime = Time(userInput: readLine()!)
+        
+        let dfile: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+        if dfile == nil {
+            print("File open failed")
+        } else {
+            let data = ("\nTime of Ingestion: \(medTime)" as
+                NSString).data(using: String.Encoding.utf8.rawValue)
+            dfile?.seek(toFileOffset: UInt64(300 + med.count + Dose.count))
+            dfile?.write(data!)
+            dfile?.closeFile()
+        }
         
         super.init(medName: med, dose:pDose)
     }
@@ -318,26 +508,26 @@ func displayPrimaryMenu(){
             }
             if answer == "6"{
                 let filemgr = FileManager.default
-                if filemgr.fileExists(atPath: "/Users/2020noal/workspace/pain_project/TestTextBasedAppVersion2/TestTextBasedAppVersion2/testtest.txt") {
+                if filemgr.fileExists(atPath: "/Users/2020alexish/workspace/pain_project/TestTextBasedAppVersion2/TestTextBasedAppVersion2/testtest.txt") {
                     print("File exists")
                 } else {
                     print("File not found")
                 }
-                //read
-                var filepath1 = "/Users/2020noal/workspace/pain_project/TestTextBasedAppVersion2/TestTextBasedAppVersion2/testtest.txt"
+                //reads file testtest
+                let filepath1 = "/Users/2020alexish/workspace/pain_project/TestTextBasedAppVersion2/TestTextBasedAppVersion2/testtest.txt"
                 let databuffer = filemgr.contents(atPath: filepath1)
                 print(String(data: databuffer!, encoding: .utf8)!)
-               //write
-                let file: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
-                if file == nil {
-                    print("File open failed")
-                } else {
-                    let data = ("black dog" as
-                        NSString).data(using: String.Encoding.utf8.rawValue)
-                    file?.seek(toFileOffset: 12)
-                    file?.write(data!)
-                    file?.closeFile()
-                }
+               //writes in file testtest
+//                let file: FileHandle? = FileHandle(forUpdatingAtPath: filepath1)
+//                if file == nil {
+//                    print("File open failed")
+//                } else {
+//                    let data = ("black dog" as
+//                        NSString).data(using: String.Encoding.utf8.rawValue)
+//                    file?.seek(toFileOffset: 12)
+//                    file?.write(data!)
+//                    file?.closeFile()
+//                }
             }
             print("do you want to do something else? type YES or NO")
             answer2 = readLine()!
@@ -358,42 +548,15 @@ func displayPrimaryMenu(){
         surveyQ.ask()
         let surveyIndex = readLine()!
         let intSurveyIndex = Int(surveyIndex)!
-        displaySurveyMenu()
         }
-    }
     
+    
+    if answer == "1"{
+        testList.addPatient()
+        displaymenu()
+    }
+    }
 
-func displaySurveyMenu(){
-    var answer2 = ""
-    repeat{
-        print("press 3 to see patient info, press 4 to take the pain survey, press 5 to take medication survey")
-        let answer = readLine()
-    
-        if answer == "3"{
-            testList.query()
-        }
-        if answer == "4"{
-            let surveyQ = SurveyQuestion (text: "What is your patient number?")
-            surveyQ.ask()
-            let surveyIndex = readLine()!
-            let intSurveyIndex = Int(surveyIndex)!
-            testList.array[intSurveyIndex].addPainSurvey()
-        }
-        if answer == "5"{
-            let surveyQ = SurveyQuestion (text: "What is your patient number?")
-            surveyQ.ask()
-            let surveyIndex = readLine()!
-            let intSurveyIndex = Int(surveyIndex)!
-            testList.array[intSurveyIndex].addMedicationSurvey()
-        }
-        if answer == "6"{
-            testList.savePatient()
-        }
-        
-        print("do you want to do something else? type YES or NO")
-        answer2 = readLine()!
-    }
-        while (answer2 == ("YES") || answer2 == ("yes"))
 
 //    func displaymenu(){
 //        var answer2 = "YES"
